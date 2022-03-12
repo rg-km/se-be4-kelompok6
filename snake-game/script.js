@@ -56,6 +56,13 @@ let apple2 = {
     position: initPosition(),
 }
 
+let nyawa = {
+    color: "green",
+    position: initPosition(),
+    
+}
+
+
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -99,6 +106,11 @@ function draw() {
         let fruit = document.getElementById("apple");
         ctx.drawImage(fruit, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         ctx.drawImage(fruit, apple2.position.x * CELL_SIZE, apple2.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
+        //Menambahkan icon nyawa 
+        let life = document.getElementById("nyawa");
+        ctx.drawImage(life, nyawa.position.x * CELL_SIZE, nyawa.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+
 
         drawScore(snake1);
     }, REDRAW_INTERVAL);
