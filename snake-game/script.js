@@ -142,6 +142,8 @@ function drawScore(snake) {
 
 let levelSelector = document.querySelector('#level');
 let level = 1;
+let speedSelector = document.querySelector('#speed');
+
 function drawNumLife(snake) {
     let numLifeCanvas;
     if (snake.color == snake1.color) {
@@ -197,7 +199,6 @@ function draw() {
             ctx.drawImage(loves, love.position.x * CELL_SIZE, love.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }  
         
-
         drawScore(snake1);
         drawNumLife(snake1);
     }, REDRAW_INTERVAL);
@@ -241,7 +242,9 @@ function eat(snake, apple, love) {
         }
     }
   
+    speedSelector.innerHTML = `Speed: ${MOVE_INTERVAL} ms`
     levelSelector.innerHTML = `Snake Game - Level ${level}`
+    
     if (snake.head.x == love.position.x && snake.head.y == love.position.y) {
         love.position = initPosition();
         snake.score++;
