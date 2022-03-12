@@ -74,6 +74,11 @@ function drawScore(snake) {
     scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
+function drawSnakeImg(ctx, x, y) {
+    let img = document.getElementById("snakeImg");
+    ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+}
+
 function draw() {
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
@@ -82,9 +87,9 @@ function draw() {
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
         
-        drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        drawSnakeImg(ctx, snake1.head.x, snake1.head.y, snake1.color);
         for (let i = 1; i < snake1.body.length; i++) {
-            drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+            drawSnakeImg(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
         }
         drawCell(ctx, wall.head.x, wall.head.y, wall.color);
         for (let i = 1; i < wall.body.length; i++) {
