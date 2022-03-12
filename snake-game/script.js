@@ -37,6 +37,7 @@ function initSnake(color) {
         ...initHeadAndBody(),
         direction: initDirection(),
         score: 0,
+        numLife: 3,
     }
 }
 let snake1 = initSnake("purple");
@@ -52,6 +53,11 @@ let apple = {
 }
 
 let apple2 = {
+    color: "red",
+    position: initPosition(),
+}
+
+let love = {
     color: "red",
     position: initPosition(),
 }
@@ -74,9 +80,33 @@ function drawScore(snake) {
     scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
+function drawNumLife(snake) {
+    let numLifeCanvas;
+    if (snake.color == snake1.color) {
+        numLifeCanvas = document.getElementById("numlife");
+    }
+    let numLifeCtx = numLifeCanvas.getContext("2d");
+
+    numLifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    numLifeCtx.font = "30px Arial";
+    numLifeCtx.fillStyle = snake.color
+    numLifeCtx.fillText(snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
+}
+
 function drawSnakeImg(ctx, x, y) {
     let img = document.getElementById("snakeImg");
     ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+}
+
+function angkaPrima (num) {
+    var x= 0;
+    for(var i = 2; i<= Math.floor(num/2); i++) {
+        x++
+        if (num%i === 0) {
+        return false
+        } 
+    }
+    return true
 }
 
 function draw() {
@@ -105,7 +135,15 @@ function draw() {
         ctx.drawImage(fruit, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         ctx.drawImage(fruit, apple2.position.x * CELL_SIZE, apple2.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
+        let loves = document.getElementById("love");
+
+        if (angkaPrima(snake1.score)) {
+            ctx.drawImage(loves, love.position.x * CELL_SIZE, love.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        }  
+        
+
         drawScore(snake1);
+        drawNumLife(snake1);
     }, REDRAW_INTERVAL);
 }
 
@@ -124,7 +162,7 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple) {
+function eat(snake, apple, love) {
     if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
         apple.position = initPosition();
         snake.score++;
@@ -136,30 +174,37 @@ function eat(snake, apple) {
         snake.score++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
+
+    if (snake.head.x == love.position.x && snake.head.y == love.position.y) {
+        love.position = initPosition();
+        snake.score++;
+        snake.numLife++;
+        snake.body.push({x: snake.head.x, y: snake.head.y});
+    }
 }
 
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple, love);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple, love);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple, love);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple, love);
 }
 
 function checkCollision(snakes) {
