@@ -9,7 +9,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 120;
+let MOVE_INTERVAL = 150;
 
 function initPosition() {
     return {
@@ -41,7 +41,7 @@ function initSnake(color) {
     }
 }
 let snake1 = initSnake("purple");
-
+var levelAudio = new Audio("asset/level.wav");
 // Buat tembok
 // =======================================
 function initHeadAndBodyWall(x, y, wall) {
@@ -226,6 +226,8 @@ function eat(snake, apple, love) {
         snake.body.push({x: snake.head.x, y: snake.head.y});
 
         if(snake.score % 5 == 0){
+            MOVE_INTERVAL -= 30;
+            levelAudio.play();
             alert(`Level ${level} Complete!`)
             level += 1;
         }
@@ -237,6 +239,8 @@ function eat(snake, apple, love) {
         snake.body.push({x: snake.head.x, y: snake.head.y});
 
         if(snake.score % 5 == 0){
+            MOVE_INTERVAL -= 30;
+            levelAudio.play();
             alert(`Level ${level} Complete!`)
             level += 1;
         }
@@ -290,6 +294,7 @@ function checkCollision(snakes) {
         }
     }
     if (isCollide) {
+        MOVE_INTERVAL = 150;
         var snd = new Audio('asset/game-over.mp3');
         snd.play();
         alert("Game over");
