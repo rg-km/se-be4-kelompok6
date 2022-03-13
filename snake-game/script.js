@@ -136,7 +136,7 @@ function drawScore(snake) {
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "30px Arial";
-    scoreCtx.fillStyle = "purple"
+    scoreCtx.fillStyle = snake.color
     scoreCtx.fillText("Score : " + snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
@@ -153,8 +153,6 @@ function drawNumLife(snake) {
 
     numLifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     numLifeCtx.font = "30px Arial";
-    numLifeCtx.fillStyle = "purple"
-    numLifeCtx.fillText("Lifes : " + snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
     numLifeCtx.fillStyle = snake.color
     numLifeCtx.fillText("Lifes : " + numLife, 10, numLifeCanvas.scrollHeight / 2);
 }
@@ -300,7 +298,6 @@ function checkCollision(snakes) {
         snd.play();
         alert("Kamu Nabrak");
         snake1 = initSnake("purple");
-        snake1.numLife--;
         numLife -=1;
         if (numLife < 0){
             alert("GameOver")
