@@ -37,10 +37,10 @@ function initSnake(color) {
         ...initHeadAndBody(),
         direction: initDirection(),
         score: 0,
+        numLife: 3,
     }
 }
-var numLife = 3;
-let snake1 = initSnake("purple");
+let snake1 = initSnake("white");
 var levelAudio = new Audio("asset/level.wav");
 // Buat tembok
 // =======================================
@@ -155,8 +155,6 @@ function drawNumLife(snake) {
     numLifeCtx.font = "30px Arial";
     numLifeCtx.fillStyle = "purple"
     numLifeCtx.fillText("Lifes : " + snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
-    numLifeCtx.fillStyle = snake.color
-    numLifeCtx.fillText("Lifes : " + numLife, 10, numLifeCanvas.scrollHeight / 2);
 }
 
 function drawSnakeImg(ctx, x, y) {
@@ -254,7 +252,7 @@ function eat(snake, apple, love) {
     if (snake.head.x == love.position.x && snake.head.y == love.position.y) {
         love.position = initPosition();
         snake.score++;
-        numLife++;
+        snake.numLife++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
 }
@@ -301,14 +299,10 @@ function checkCollision(snakes) {
         alert("Kamu Nabrak");
         snake1 = initSnake("purple");
         snake1.numLife--;
-        numLife -=1;
-        if (numLife < 0){
-            alert("GameOver")
-            location.reload();
-        }
     }
     return isCollide;
 }
+
 function move(snake) {
     switch (snake.direction) {
         case DIRECTION.LEFT:
