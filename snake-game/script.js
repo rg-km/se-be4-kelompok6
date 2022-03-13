@@ -136,7 +136,7 @@ function drawScore(snake) {
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "30px Arial";
-    scoreCtx.fillStyle = snake.color
+    scoreCtx.fillStyle = "purple"
     scoreCtx.fillText("Score : " + snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
@@ -153,7 +153,7 @@ function drawNumLife(snake) {
 
     numLifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     numLifeCtx.font = "30px Arial";
-    numLifeCtx.fillStyle = snake.color
+    numLifeCtx.fillStyle = "purple"
     numLifeCtx.fillText("Lifes : " + snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
 }
 
@@ -297,7 +297,7 @@ function checkCollision(snakes) {
         var snd = new Audio('asset/game-over.mp3');
         snd.play();
         alert("Kamu Nabrak");
-        snake1 = initSnake("white");
+        snake1 = initSnake("purple");
         snake1.numLife--;
     }
     return isCollide;
