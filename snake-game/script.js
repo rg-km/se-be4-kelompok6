@@ -8,6 +8,7 @@ const DIRECTION = {
     RIGHT: 1,
     UP: 2,
     DOWN: 3,
+    STOP: 4,
 }
 let MOVE_INTERVAL = 150;
 
@@ -38,6 +39,7 @@ function initSnake(color) {
         direction: initDirection(),
         score: 0,
         numLife: 3,
+        collisionHasResolved: true,
     }
 }
 let snake1 = initSnake("purple");
@@ -281,32 +283,30 @@ function moveUp(snake) {
     eat(snake, apple, love);
 }
 
-function checkCollision(snakes) {
+function moveStop(snake){
+
+}
+
+function checkCollision(snake) {
     let isCollide = false;
     //this
-    for (let i = 0; i < snakes.length; i++) {
-        for (let j = 0; j < snakes.length; j++) {
-            for (let k = 1; k < snakes[j].body.length; k++) {
-                if (snakes[i].head.x == snakes[j].body[k].x && snakes[i].head.y == snakes[j].body[k].y) {
+    for (let i = 0; i < snake.length; i++) {
+        for (let j = 0; j < snake.length; j++) {
+            for (let k = 1; k < snake[j].body.length; k++) {
+                if (snake[i].head.x == snake[j].body[k].x && snake[i].head.y == snake[j].body[k].y) {
                     isCollide = true;
+                    snake.collisionHasResolved = false;
+                    turn(snake1, DIRECTION.STOP);
                 }
             }
         }
     }
-    if (isCollide) {
-        MOVE_INTERVAL = 150;
-        var snd = new Audio('asset/game-over.mp3');
-        snd.play();
-        alert("Game over");
-        snake1 = initSnake("purple");
 
-        // ReInit
-        level = 1;
-    }
     return isCollide;
 }
 
 function move(snake) {
+
     switch (snake.direction) {
         case DIRECTION.LEFT:
             moveLeft(snake);
@@ -320,9 +320,12 @@ function move(snake) {
         case DIRECTION.UP:
             moveUp(snake);
             break;
+        case DIRECTION.STOP:
+            moveStop(snake);
+            break;
     }
-    moveBody(snake);
-
+    if (snake.direction !== DIRECTION.STOP) moveBody(snake);
+    
     // Check Wall
     let test = [snake1];
     
@@ -341,7 +344,21 @@ function move(snake) {
             move(snake);
         }, MOVE_INTERVAL);
     } else {
-        initGame();
+        if(snake.numLife > 0){
+            if(!snake.collisionHasResolved){
+                snake.numLife--;
+                snake.collisionHasResolved = true;
+            }
+            
+            setTimeout(function() {
+                move(snake);
+            }, MOVE_INTERVAL);
+        } else {
+            var snd = new Audio('asset/game-over.mp3');
+            snd.play();
+            alert("Game over");
+            initGame();
+        }
     }
 }
 
@@ -358,7 +375,8 @@ function turn(snake, direction) {
         [DIRECTION.UP]: DIRECTION.DOWN,
     }
 
-    if (direction !== oppositeDirections[snake.direction]) {
+    if (direction !== oppositeDirections[snake.direction] || direction === DIRECTION.STOP || snake.direction === DIRECTION.STOP ) {
+        console.log(direction);
         snake.direction = direction;
     }
 }
@@ -376,6 +394,11 @@ document.addEventListener("keydown", function (event) {
 })
 
 function initGame() {
+    MOVE_INTERVAL = 150;
+        snake1 = initSnake("purple");
+
+        // ReInit
+        level = 1;
     move(snake1);
 }
 
