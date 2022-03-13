@@ -139,7 +139,7 @@ function drawScore(snake) {
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "30px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText("Score : " + snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
 let levelSelector = document.querySelector('#level');
@@ -156,7 +156,7 @@ function drawNumLife(snake) {
     numLifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     numLifeCtx.font = "30px Arial";
     numLifeCtx.fillStyle = snake.color
-    numLifeCtx.fillText(snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
+    numLifeCtx.fillText("Lifes : " + snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
 }
 
 function drawSnakeImg(ctx, x, y) {
