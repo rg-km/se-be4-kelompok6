@@ -40,7 +40,7 @@ function initSnake(color) {
         numLife: 3,
     }
 }
-let snake1 = initSnake("purple");
+let snake1 = initSnake("white");
 var levelAudio = new Audio("asset/level.wav");
 // Buat tembok
 // =======================================
@@ -297,7 +297,7 @@ function checkCollision(snakes) {
         var snd = new Audio('asset/game-over.mp3');
         snd.play();
         alert("Kamu Nabrak");
-        snake1 = initSnake("purple");
+        snake1 = initSnake("white");
         snake1.numLife--;
     }
     return isCollide;
