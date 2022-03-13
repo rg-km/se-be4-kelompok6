@@ -39,8 +39,6 @@ function initSnake(color) {
         score: 0,
     }
 }
-
-let snake1 = initSnake("white");
 var numLife = 3;
 let snake1 = initSnake("purple");
 var levelAudio = new Audio("asset/level.wav");
@@ -299,8 +297,6 @@ function checkCollision(snakes) {
         var snd = new Audio('asset/game-over.mp3');
         snd.play();
         alert("Kamu Nabrak");
-        snake1 = initSnake("white");
-        snake1.numLife--;
         snake1 = initSnake("purple");
         numLife -=1;
         if (numLife < 0){
