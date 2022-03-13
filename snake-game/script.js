@@ -114,21 +114,11 @@ let apple2 = {
     position: initPosition(),
 }
 
-<<<<<<< HEAD
 let love = {
     color: "red",
     position: initPosition(),
 }
 
-=======
-let nyawa = {
-    color: "green",
-    position: initPosition(),
-    
-}
-
-
->>>>>>> a57f8835fda87d3d663caf072c4fc8a417ad53de
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -205,20 +195,12 @@ function draw() {
         ctx.drawImage(fruit, apple.position.x * CELL_SIZE, apple.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         ctx.drawImage(fruit, apple2.position.x * CELL_SIZE, apple2.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
-<<<<<<< HEAD
         let loves = document.getElementById("love");
 
         if (angkaPrima(snake1.score)) {
             ctx.drawImage(loves, love.position.x * CELL_SIZE, love.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }  
         
-=======
-        //Menambahkan icon nyawa 
-        let life = document.getElementById("nyawa");
-        ctx.drawImage(life, nyawa.position.x * CELL_SIZE, nyawa.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-
-
->>>>>>> a57f8835fda87d3d663caf072c4fc8a417ad53de
         drawScore(snake1);
         drawNumLife(snake1);
     }, REDRAW_INTERVAL);
