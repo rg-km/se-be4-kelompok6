@@ -37,10 +37,10 @@ function initSnake(color) {
         ...initHeadAndBody(),
         direction: initDirection(),
         score: 0,
-        numLife: 3,
     }
 }
-let snake1 = initSnake("white");
+var numLife = 3;
+let snake1 = initSnake("purple");
 var levelAudio = new Audio("asset/level.wav");
 // Buat tembok
 // =======================================
@@ -136,7 +136,7 @@ function drawScore(snake) {
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "30px Arial";
-    scoreCtx.fillStyle = "purple"
+    scoreCtx.fillStyle = snake.color
     scoreCtx.fillText("Score : " + snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
@@ -153,8 +153,8 @@ function drawNumLife(snake) {
 
     numLifeCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     numLifeCtx.font = "30px Arial";
-    numLifeCtx.fillStyle = "purple"
-    numLifeCtx.fillText("Lifes : " + snake.numLife, 10, numLifeCanvas.scrollHeight / 2);
+    numLifeCtx.fillStyle = snake.color
+    numLifeCtx.fillText("Lifes : " + numLife, 10, numLifeCanvas.scrollHeight / 2);
 }
 
 function drawSnakeImg(ctx, x, y) {
@@ -252,7 +252,7 @@ function eat(snake, apple, love) {
     if (snake.head.x == love.position.x && snake.head.y == love.position.y) {
         love.position = initPosition();
         snake.score++;
-        snake.numLife++;
+        numLife++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
 }
@@ -298,11 +298,14 @@ function checkCollision(snakes) {
         snd.play();
         alert("Kamu Nabrak");
         snake1 = initSnake("purple");
-        snake1.numLife--;
+        numLife -=1;
+        if (numLife < 0){
+            alert("GameOver")
+            location.reload();
+        }
     }
     return isCollide;
 }
-
 function move(snake) {
     switch (snake.direction) {
         case DIRECTION.LEFT:
