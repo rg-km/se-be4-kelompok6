@@ -299,8 +299,10 @@ function checkCollision(snakes) {
         alert("Kamu Nabrak");
         snake1 = initSnake("purple");
         numLife -=1;
-        if (numLife < 0){
-            alert("GameOver")
+        if (numLife < 1) {
+            var snd = new Audio('asset/game-over.mp3');
+            snd.play();
+            alert("Game Over!")
             location.reload();
         }
     }
