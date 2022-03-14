@@ -266,10 +266,7 @@ function eat(snake, apple, love) {
         love.position = initPosition();
         snake.score++;
         numLife++;
-        snake.body.push({
-            x: snake.head.x,
-            y: snake.head.y
-        });
+        snake.body.push({x: snake.head.x, y: snake.head.y});
     }
 }
 
@@ -316,13 +313,14 @@ function checkCollision(snakes) {
         snake1 = initSnake("white");
         numLife -= 1;
         if (numLife < 1) {
-            alert("GameOver")
+            var snd = new Audio('asset/game-over.mp3');
+            snd.play();
+            alert("Game Over!")
             location.reload();
         }
     }
     return isCollide;
 }
-
 function move(snake) {
     switch (snake.direction) {
         case DIRECTION.LEFT:
